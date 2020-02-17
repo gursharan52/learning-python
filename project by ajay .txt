@@ -1,0 +1,108 @@
+5 input 
+
+1. open new bank acc.
+name 
+account no.
+phone no.
+address
+money
+
+2. view bank account.
+fetch all detail through by acc. no. 
+
+3. deposit money
+Enter your account no.
+depositing money
+print( ammount has been debited)
+
+4. debit money
+Enter your account no.
+widdrawl money
+
+5. view all acc.
+all account no.
+
+6. total money deposited
+total money view
+
+
+
+
+
+
+
+
+def P3():
+	global name
+	global account_no
+	print('Sir Please fill a detail for deposit a ammount.')
+	account_no =int(input(f"Mr. enter your account no.\n"))
+	deposit_money =float(input('Enter money\n'))
+	
+	conn = sqlite3.connect('bank.db')
+	conn.execute("select * from BANK where ACCOUNT_NO = ?",(account_no,))
+	row = conn.fetchall()
+	NAME, ACCOUNT_NO, PHONE_NO, ADDRESS, DEPOSIT_MONEY = row[0]
+	
+	new_balance = DEPOSIT_MONEY  + deposit_money
+	conn.execute("UPDATE BANK SET DEPOSIT_MONEY = ? where ACCOUNT_NO = ?",(new_balance, account_no,))
+	conn.commit()
+	# 
+	#print(update_balance)
+	print(f'Mr. Payment has been deposited in your account\n\n\n')
+	print('Thank,s for choose our bank :-) \n\n')
+	conn.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	def P3():
+	
+	global name
+	global account_no
+	print('Sir Please fill a detail for deposit a ammount.')
+	account_no =int(input(f"Mr. enter your account no.\n"))
+	deposit_money =float(input('Enter money\n'))
+	
+	conn = sqlite3.connect('bank.db')
+	cursor = list(conn.execute("select DEPOSIT_MONEY from BANK where ACCOUNT_NO = ?",(account_no,)))
+	for row in cursor:
+		bal = row[0]
+	
+	
+	
+	new_balance = bal + deposit_money
+	
+	conn.execute("UPDATE BANK SET DEPOSIT_MONEY = ? where ACCOUNT_NO = ?",(new_balance, account_no,))
+	conn.commit()
+	print(f'Payment has been deposited in your account and your balance is {new_balance}\n\n\n')
+	print('Thank,s for choose our bank :-) \n\n')
+	conn.close()
+
+
+
+
+
+	cursor = list(conn.execute("select DEPOSIT_MONEY from BANK "))
+	for row in cursor:
+		print ("DEPOSIT_MONEY = ", row[0]) 
+		print("Operation done successfully\n\n")
+
+
